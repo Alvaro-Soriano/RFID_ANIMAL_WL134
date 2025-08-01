@@ -83,6 +83,14 @@ uint64_t BufferDecimal(uint8_t* buffer, int inicio, int fin) {
   return valorDecimal;
 }
 
+//funcion para autocompletar los ceros faltantes
+String rellenaZero(String s, uint8_t width = 12) {
+  while (s.length() < width) {
+    s = "0" + s;
+  }
+  return s;
+}
+
 //creamos el bucle
 void loop() {
 
@@ -131,7 +139,7 @@ void loop() {
 
   //Separamos del array la información del pais y el codigo
   String pais = String(BufferDecimal(buffer, 11, 4));
-  String codigo = String(BufferDecimal(buffer, 1, 10));
+  String codigo = rellenaZero(String(BufferDecimal(buffer, 1, 10)));
   String tag = pais + codigo;
   Serial.println("pais: "+pais);
   Serial.println("codigo: "+codigo);
